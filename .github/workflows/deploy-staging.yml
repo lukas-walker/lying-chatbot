@@ -13,4 +13,5 @@ jobs:
     steps:
     - name: Deploy via Webhook
       run: |
-        curl -X POST http://91.99.48.86:9000/hooks/deploy-staging
+        curl -X POST http://91.99.48.86:9000/hooks/deploy-staging \
+          -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_STAGING }}"
