@@ -1,0 +1,16 @@
+name: Deploy to Staging
+
+on:
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    branches:
+      - staging  # or main if you want
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy via Webhook
+      run: |
+        curl -X POST http://91.99.48.86:9000/hooks/deploy-staging
