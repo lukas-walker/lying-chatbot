@@ -91,7 +91,7 @@ def check_number(number_guess):
 
 # Gradio UI
 with gr.Blocks() as demo:
-    gr.Markdown("## Trust your ChatBot!")
+    gr.Markdown("## [STAGING] Trust your ChatBot!")
     gr.Markdown("Both of these ChatBots know the code that you need to unlock the safe. The code is a number between 0 and 999. However, only one of them tells the truth. Can you figure out which one, only by talking to them?")
     gr.Markdown("Note: The ChatBots cannot hear what the other one is saying. ")
 
