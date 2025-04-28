@@ -118,7 +118,8 @@ with gr.Blocks() as demo:
 
     clear.click(lambda: None, None, [chatbot_1, chatbot_2], queue=False)
 
-demo.launch(share=True, debug=False)
+
+demo.launch(share=True, debug=False, server_name="0.0.0.0", server_port=7860)
 
 
 ## failed attempts at one-shotting
