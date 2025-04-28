@@ -16,6 +16,7 @@ When cloning this app and running it in a Docker container, you'll have to manua
 
 Example yaml:
 
+```
 version: '3'
 services:
   chatbot:
@@ -23,4 +24,5 @@ services:
     ports:
       - "7860:7860"
     restart: always
+```
 
