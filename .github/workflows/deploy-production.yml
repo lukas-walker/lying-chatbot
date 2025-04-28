@@ -1,0 +1,25 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check if branch is correct
+      if: github.ref == 'refs/heads/main'
+      run: echo "Deploying to Production..."
+
+    - name: Fail if wrong branch
+      if: github.ref != 'refs/heads/main'
+      run: |
+        echo "❌ Wrong branch! Only main branch allowed for this deploy."
+        exit 1
+
+    - name: Deploy via Webhook
+      if: github.ref == 'refs/heads/main'
+      run: |
+        curl -X POST http://91.99.48.86:9000/hooks/deploy-production \
+          -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_PRODUCTION }}"
