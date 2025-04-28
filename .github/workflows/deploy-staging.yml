@@ -12,16 +12,17 @@ jobs:
 
     steps:
     - name: Check if branch is correct
-        if: github.ref == 'refs/heads/staging'
-        run: echo "Deploying to Staging..."
+      if: github.ref == 'refs/heads/staging'
+      run: echo "Deploying to Staging..."
 
     - name: Fail if wrong branch
-        if: github.ref != 'refs/heads/staging'
-        run: |
-          echo "❌ Wrong branch! Only staging branch allowed for this deploy."
-          exit 1
+      if: github.ref != 'refs/heads/staging'
+      run: |
+      echo "❌ Wrong branch! Only staging branch allowed for this deploy."
+      exit 1
 
     - name: Deploy via Webhook
+      if: github.ref == 'refs/heads/staging'
       run: |
         curl -X POST http://91.99.48.86:9000/hooks/deploy-staging \
           -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_STAGING }}"
