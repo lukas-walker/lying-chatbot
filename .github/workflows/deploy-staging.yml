@@ -25,4 +25,4 @@ jobs:
       if: github.ref == 'refs/heads/staging'
       run: |
         curl -X POST http://91.99.48.86:9000/hooks/deploy-staging \
-          -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_STAGING }}"
+          -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET }}"
