@@ -26,3 +26,9 @@ jobs:
       run: |
         curl -X POST http://91.99.48.86:9000/hooks/deploy-production \
           -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_PRODUCTION }}"
+          
+    - name: Webhook log everything
+      if: github.ref == 'refs/heads/main'
+      run: |
+        curl -X POST http://91.99.48.86:9000/hooks/debug-log \
+          -H "X-Webhook-Token: ${{ secrets.WEBHOOK_SECRET_DEPLOY_PRODUCTION }}"
