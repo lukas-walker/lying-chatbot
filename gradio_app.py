@@ -1,7 +1,6 @@
 import gradio as gr
 from llm_handler import bot_1, bot_2
 from game_logic import init_game, make_system_prompts, process_user_input
-import gradio_modal
 
 with open("style.css", "r") as f:
     style = f.read()
