@@ -3,6 +3,9 @@ from llm_handler import bot_1, bot_2
 from game_logic import init_game, make_system_prompts, process_user_input
 from gradio_modal import Modal
 
+number_guessed_correct = 0
+number_guessed_wrong = 0
+
 with open("style.css", "r") as f:
     style = f.read()
 with open("script.js", "r") as f:
@@ -14,18 +17,8 @@ head = f"""
 <style>{style}</style>
 <script>{script}</script>
 """
-# for javascript
-# <script src="/static/js/script.js"></script>
 
-# Reference the path to your CSS and JS files
-#css_file_path = "style/style.css"  # CSS file in the "style" folder
-#js_file_path = "js/script.js"      # JS file in the "js" folder
 
-# Construct the HTML <head> section with <link> for CSS and <script> for JS
-#head = f"""
-#<link rel="stylesheet" href="{css_file_path}">
-#<script src="{js_file_path}"></script>
-#"""
 # Gradio UI
 with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM Sans", "sans-serif"]), head=head) as demo:
     ####
@@ -74,7 +67,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Column(elem_classes=["introduction_text_column"]):
             gr.Markdown("# Der lügende Chatbot")
             with gr.Accordion("Worum gehts?", elem_classes=["introduction_text_accordion"], open=False):
-                gr.Markdown("Zwei ChatBots, ein Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_", elem_id="introduction_text")
+                gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_", elem_id="introduction_text")
         with gr.Column():
             gr.Markdown("")
         with gr.Column():
@@ -110,11 +103,31 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Column(scale=1, min_width=50):
             send_btn = gr.Button("Senden", elem_id="send_button")
 
-    with Modal(visible=False) as modal:
-        for i in range(5):
-            gr.Markdown("Hello world!")
-
     hidden_textbox = gr.Textbox(visible=False)
+
+    with Modal(visible=False, allow_user_close=False) as modal:
+        gr.Markdown("Du hast geraten, dass die richtige Zahl die folgende ist: ")
+        modal_message_markdown = gr.Markdown()
+        modal_message_statistic_markdown = gr.Markdown()
+        gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
+        btn_refresh = gr.Button(value="Neu laden", elem_id="reload_page")
+        btn_refresh.click(None, js="window.location.reload()")
+
+
+    def show_modal(correct_number, number_guess):
+        global number_guessed_correct
+        global number_guessed_wrong
+
+        if (correct_number == int(number_guess)):
+            message = f"Genau! Die richtige Kombination ist {correct_number}!"
+            number_guessed_correct += 1
+        else:
+            message = f"Leider ist das falsch. Die richtige Kombination ist {correct_number}"
+            number_guessed_wrong += 1
+
+        statistic_message = f"Bis jetzt haben {number_guessed_correct} Mitspielende richtig geraten, während {number_guessed_wrong} Mitspielende falsch geraten haben."
+
+        return gr.update(visible=True), message, statistic_message
 
     def check_number(correct_number, number_guess):
         if correct_number == number_guess:
@@ -166,15 +179,15 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
     # Guessing section
     check_number_btn.click(
-        fn=lambda: Modal(visible=True),
+        fn=None,
         inputs=[],
         outputs=hidden_textbox,
         js="()=>getNumberGuess()"
     )
     hidden_textbox.change(
-        fn=check_number,
+        fn=show_modal,
         inputs=[state_correct_number, hidden_textbox],
-        outputs=[]
+        outputs=[modal, modal_message_markdown, modal_message_statistic_markdown]
     )
 
     # start game initially

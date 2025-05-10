@@ -9,11 +9,11 @@ footer {
     background-size: cover;
 }
 
-#send_button{
+#send_button, #reload_page{
     color:white;
     background:black;
 }
-#send_button:hover{
+#send_button:hover, #reload_page:hover{
     color:white;
     background: #2f2f2f;
 }

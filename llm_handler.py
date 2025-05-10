@@ -38,7 +38,7 @@ def bot(history, system_prompt, llm):
     for response in llm.stream(langchain_messages):
         response_text += response.content.encode().decode()
 
-        history[-1]["content"] = response_text  # Update last message
+        history[-1]["content"] = response_text.encode().decode()  # Update last message
         time.sleep(0.05)
         yield history
 
