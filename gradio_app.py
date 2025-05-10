@@ -20,7 +20,7 @@ head = f"""
 
 
 # Gradio UI
-with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM Sans", "sans-serif"]), head=head) as demo:
+with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM Sans", "sans-serif"]), head=head, title="Intersection's Orakel") as demo:
     ####
     # STATE
     ####
@@ -198,4 +198,4 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         js="() => check_number_guess_valid()"
     )
 
-demo.launch(server_name="0.0.0.0", server_port=7860)
+demo.launch(server_name="0.0.0.0", server_port=7860, favicon_path="intersections_ch_logo-32x32.ico")
