@@ -67,33 +67,17 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Column(elem_classes=["introduction_text_column"]):
             gr.Markdown("# Der lügende Chatbot")
             with gr.Accordion("Worum gehts?", elem_classes=["introduction_text_accordion"], open=False):
-                gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_", elem_id="introduction_text")
+                gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_",
+                            elem_id="introduction_text",
+                            elem_classes=["black-text"])
         with gr.Column():
             gr.Markdown("")
         with gr.Column():
-            gr.HTML("""<img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/>
+            gr.HTML("""<a href="https://intersections.ch"><img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/></a>
                 """, elem_classes="logo-image-container")
-
-    with gr.Row():
-        with gr.Column(scale=2):
-            gr.Markdown("## Chatbot A")
-            chatbot_1 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
-            # Guessing section
-        with gr.Column(scale=1, elem_id="keypad_column"):
-            with gr.Row(elem_classes=["safe-combination"]):
-                gr.HTML(keypad_html)
-            check_number_btn = gr.Button("Lösung überprüfen", elem_id="check_number_button")
-        with gr.Column(scale=2):
-            gr.Markdown("## Chatbot B", elem_id="chatbot_b_markdown")
-            chatbot_2 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
-
 
     with gr.Row(elem_classes=["chat_container_border"]):
         user_message_textbox = gr.Textbox(placeholder="Prompt...", label="Sprich mit den Chatbots!")
-
-    #gr.Markdown(
-    #    "Both of these ChatBots know the code that you need to unlock the safe. The code is a three digit number between 000 and 999. However, only one of them tells the truth. Can you figure out which one, only by talking to them?")
-    #gr.Markdown("Note: The ChatBots cannot hear what the other one is saying. ")
 
     with gr.Row():
         with gr.Column(scale=10):
@@ -102,6 +86,41 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             reset_btn = gr.Button("Neustart", elem_id="reset_button")
         with gr.Column(scale=1, min_width=50):
             send_btn = gr.Button("Senden", elem_id="send_button")
+
+    with gr.Row():
+        with gr.Row(elem_id="desktop-view"):  # This row is visible only on wide screens
+            with gr.Column(scale=2):
+                gr.Markdown("## Chatbot A")
+                chatbot_1 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box", "black-text"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
+                # Guessing section
+            with gr.Column(scale=1, elem_id="keypad_column"):
+                gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
+                with gr.Row(elem_classes=["safe-combination"]):
+                    gr.HTML(keypad_html)
+                check_number_btn = gr.Button("Lösung überprüfen", elem_id="check_number_button")
+                gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
+            with gr.Column(scale=2):
+                gr.Markdown("## Chatbot B", elem_classes="align-right")
+                chatbot_2 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box", "black-text"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
+
+        with gr.Column(elem_id="mobile-view"):  # This row is visible only on mobile screens
+            with gr.Column(scale=2):
+                gr.Markdown("## Chatbot A")
+                chatbot_1 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box", "black-text"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
+                # Guessing section
+            with gr.Column(scale=1, elem_id="keypad_column"):
+                gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
+                with gr.Row(elem_classes=["safe-combination"]):
+                    gr.HTML(keypad_html)
+                check_number_btn = gr.Button("Lösung überprüfen", elem_id="check_number_button")
+                gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
+            with gr.Column(scale=2):
+                gr.Markdown("## Chatbot B", elem_classes="align-right")
+                chatbot_2 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box", "black-text"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
+
+
+
+
 
     hidden_textbox = gr.Textbox(visible=False)
 

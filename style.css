@@ -3,6 +3,15 @@ footer {
     visibility: hidden;
 }
 
+/* RESPONSIVENESS */
+#desktop-view { display: inherit; }
+#mobile-view { display: none; }
+
+@media (max-width: 768px) {
+    #desktop-view { display: none !important; }
+    #mobile-view { display: inherit !important; }
+}
+
 /* General settings */
 .gradio-container {
     background-image:url("https://intersections.ch/wp-content/uploads/2024/08/Intersections-bg-scaled.jpg");
@@ -60,7 +69,7 @@ button, .chat_container_border {
 #introduction_text {
   border-radius: 5px !important;
   border: 1px solid black !important;
-  background-color: #fafafa!important;
+  background-color: white!important;
   padding:7px!important;
   z-index: 9999; /* High z-index to ensure it’s on top */
     width: 400px;
@@ -73,6 +82,12 @@ button, .chat_container_border {
   transform: translateY(0); /* Optional: for smooth entrance */
 }
 
+.info-text-box {
+  border-radius: 5px !important;
+  border: 1px solid black !important;
+  background-color: white!important;
+  padding:7px!important;
+}
 
 
 .user.message, .bot.message {
@@ -99,19 +114,51 @@ button, .chat_container_border {
 }
 
 
+/* General font settings */
+.white-text,
+.white-text p,
+.white-text h1,
+.white-text h2,
+.white-text h3 {
+    color: white!important;
+}
+
+.black-text,
+.black-text p,
+.black-text h1,
+.black-text h2,
+.black-text h3 {
+    color: #333!important;
+}
+
+.bold-text,
+.bold-text p,
+.bold-text h1,
+.bold-text h2,
+.bold-text h3 {
+    font-weight: bold;
+}
+
+
 /* General layout */
 
-#chatbot_b_markdown {
-  text-align: right;
+.align-center {
+    text-align: center!important;
+}
+.align-right {
+    text-align: right!important;
+}
+.float-right {
+    float: right!important;
 }
 
 
 
 /* KEY PAD */
 
-#keypad_column {
+/*#keypad_column {
   padding-top: 42px;
-}
+}*/
 
 /* Shared styles for inputs and buttons */
 .digit-input, .grid-container button {
@@ -119,9 +166,8 @@ button, .chat_container_border {
   height: 40px;                  /* Fixed height for consistency */
   font-size: 1rem!important;                /* Use viewport width (vw) to make the font size scalable */
   text-align: center;
-  border: 1px solid #333;
+  border: 1px solid #333!important;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
   font-weight: bold;
 }
 
@@ -133,8 +179,6 @@ button, .chat_container_border {
 /* Focus and hover states */
 .digit-input:focus, .grid-container button:hover {
   background-color: #d2688c;     /* Light green on focus or hover */
-  border-color: #333;         /* Green border */
-  border-right: 0!important;
 }
 
 /* Valid and invalid input styles */
@@ -157,11 +201,7 @@ button, .chat_container_border {
   max-width: 400px;                     /* Limit max width to avoid it stretching too wide */
 }
 
-/* Hover effect for Delete Button */
-.delete-button:hover {
-  background-color: #d2688c;
-  border-color: #333;
-}
+
 
 .underline {
     position: relative;
