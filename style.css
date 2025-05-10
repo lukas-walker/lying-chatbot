@@ -1,0 +1,174 @@
+/* REMOVE FOOTER */
+footer {
+    visibility: hidden;
+}
+
+/* General settings */
+.gradio-container {
+    background-image:url("https://intersections.ch/wp-content/uploads/2024/08/Intersections-bg-scaled.jpg");
+    background-size: cover;
+}
+
+#send_button{
+    color:white;
+    background:black;
+}
+#send_button:hover{
+    color:white;
+    background: #2f2f2f;
+}
+
+#reset_button{
+    background:transparent;
+}
+#reset_button:hover{
+    background: #ffffff20;
+    color:black
+}
+
+button, .chat_container_border {
+  border-radius: 0!important;
+  border: 1px solid #333!important
+}
+
+/* Introduction text */
+.introduction_text_column {
+    background: transparent;
+    box-sizing: inherit!important;
+    border-width: 0!important;
+    border-style: none!important;
+  position: relative; /* Make sure it's positioned relative to its parent */
+    overflow: visible!important;
+}
+.introduction_text_accordion {
+    background: transparent!important;
+    border-radius: 0!important;
+    border: none!important;
+    overflow: visible!important;
+    height: 70px;
+  position: relative; /* Make sure the accordion is positioned relative */
+}
+
+.introduction_text_column div {
+    overflow: visible!important;
+}
+
+.introduction_text_accordion button {
+    padding:5px!important;
+}
+
+#introduction_text {
+  border-radius: 5px !important;
+  border: 1px solid black !important;
+  background-color: #fafafa!important;
+  padding:7px!important;
+  z-index: 9999; /* High z-index to ensure it’s on top */
+    width: 400px;
+
+  position: absolute; /* Take it out of normal flow */
+      top: 0; /* Position at the top */
+  left: 0; /* Position at the left */
+      overflow: visible; /* Ensure it overflows if needed */
+      display: block; /* Make sure it’s shown */
+  transform: translateY(0); /* Optional: for smooth entrance */
+}
+
+
+
+.user.message, .bot.message {
+  border-radius: 5px !important;
+  border: 1px solid black !important;
+}
+
+.icon-button-wrapper.top-panel.hide-top-corner {
+  display: none;
+}
+
+.chatbot_box {
+  background: #ffffff40!important;
+}
+
+.introduction_text {
+    color: white;
+}
+
+.logo-image-container {
+    padding-top: 0!important;
+    padding-right: 0!important;
+    padding-bottom: 20px!important;
+}
+
+
+/* General layout */
+
+#chatbot_b_markdown {
+  text-align: right;
+}
+
+
+
+/* KEY PAD */
+
+#keypad_column {
+  padding-top: 42px;
+}
+
+/* Shared styles for inputs and buttons */
+.digit-input, .grid-container button {
+  width: 100%;                   /* Make input and buttons fill the available space */
+  height: 40px;                  /* Fixed height for consistency */
+  font-size: 1rem!important;                /* Use viewport width (vw) to make the font size scalable */
+  text-align: center;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-weight: bold;
+}
+
+.grid-container button {
+  color: white !important;
+  background-color: #b73967;
+}
+
+/* Focus and hover states */
+.digit-input:focus, .grid-container button:hover {
+  background-color: #d2688c;     /* Light green on focus or hover */
+  border-color: #333;         /* Green border */
+  border-right: 0!important;
+}
+
+/* Valid and invalid input styles */
+.digit-input:valid {
+  background-color: #ffffff;     /* Light green when valid */
+}
+
+.digit-input:invalid {
+  background-color: #f2dede;     /* Light red when invalid */
+}
+
+/* Grid container layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 columns of equal width */
+  gap: 10px;                            /* Space between grid items */
+  justify-content: center;              /* Center content horizontally */
+  margin: auto;                          /* Center the grid on the page */
+  width: 100%;                           /* Make grid fill available width */
+  max-width: 400px;                     /* Limit max width to avoid it stretching too wide */
+}
+
+/* Hover effect for Delete Button */
+.delete-button:hover {
+  background-color: #d2688c;
+  border-color: #333;
+}
+
+.underline {
+    position: relative;
+    bottom: 23px;
+    left: 27%;
+    width: 46%;
+    height: 1px;
+    background-color: #333;
+    transition: width 0.3s ease;
+}

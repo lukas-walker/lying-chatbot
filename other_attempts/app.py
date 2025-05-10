@@ -110,7 +110,12 @@ with gr.Blocks() as demo:
     check_number_btn = gr.Button("Open the safe")
     check_number_btn.click(fn=check_number, inputs=number_guess, outputs=output, api_name="check_number")
 
-    msg.submit(user, [msg, chatbot_1, chatbot_2], [msg, chatbot_1, chatbot_2], queue=False).then(
+    msg.submit(
+        user,
+        [msg, chatbot_1, chatbot_2],
+        [msg, chatbot_1, chatbot_2],
+        queue=False)\
+    .then(
         partial(bot, bot_name="Bot 1"), chatbot_1, chatbot_1
     ).then(
         partial(bot, bot_name="Bot 2"), chatbot_2, chatbot_2

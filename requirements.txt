@@ -3,3 +3,7 @@ langchain-openai
 langchain-community 
 langchain 
 python-dotenv
+
+# Install the latest OpenAI SDK from GitHub main branch
+# (probably works with langchain-openai, but not sure
+# git+https://github.com/openai/openai-python.git@main#egg=openai

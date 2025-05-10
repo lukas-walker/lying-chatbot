@@ -3,6 +3,7 @@
 docker-compose.yml
 docker-compose.*.yml
 
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
