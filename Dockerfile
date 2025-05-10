@@ -6,6 +6,7 @@ WORKDIR /app
 # Copy files
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install gradio_modal
 
 COPY . .
 

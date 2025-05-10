@@ -1,6 +1,7 @@
 import gradio as gr
 from llm_handler import bot_1, bot_2
 from game_logic import init_game, make_system_prompts, process_user_input
+from gradio_modal import Modal
 
 with open("style.css", "r") as f:
     style = f.read()
@@ -109,7 +110,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Column(scale=1, min_width=50):
             send_btn = gr.Button("Senden", elem_id="send_button")
 
-
+    with Modal(visible=False) as modal:
+        for i in range(5):
+            gr.Markdown("Hello world!")
 
     hidden_textbox = gr.Textbox(visible=False)
 
@@ -163,7 +166,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
     # Guessing section
     check_number_btn.click(
-        fn=None,
+        fn=lambda: Modal(visible=True),
         inputs=[],
         outputs=hidden_textbox,
         js="()=>getNumberGuess()"
@@ -182,4 +185,4 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         js="() => check_number_guess_valid()"
     )
 
-demo.launch(share=True, debug=False, server_name="0.0.0.0", server_port=7860)
+demo.launch(server_name="0.0.0.0", server_port=7860)
