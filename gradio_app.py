@@ -86,7 +86,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             btn_reload = gr.Button(value="Neustart", elem_id="reset_button")
             btn_reload.click(None, js="window.location.reload()")
         with gr.Column(scale=1, min_width=90):
-            send_btn = gr.Button("Senden", elem_id="send_button")
+            send_btn = gr.Button("Senden", elem_id="send_button", elem_classes=["white-text"])
 
     with gr.Row():
         with gr.Column(scale=2):
@@ -97,7 +97,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
             with gr.Row(elem_classes=["safe-combination"]):
                 gr.HTML(keypad_html)
-            check_number_btn = gr.Button("Lösung überprüfen", elem_id="check_number_button")
+            check_number_btn = gr.Button("Lösung überprüfen", elem_id="check_number_button", elem_classes=["background_white"])
             gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
         with gr.Column(scale=2):
             gr.Markdown("## Chatbot B", elem_classes="align-right")
@@ -112,7 +112,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         modal_message_markdown = gr.Markdown()
         modal_message_statistic_markdown = gr.Markdown()
         gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
-        btn_refresh = gr.Button(value="Neustart", elem_id="reload_page")
+        btn_refresh = gr.Button(value="Neustart", elem_id="reload_page", elem_classes=["white-text"])
         btn_refresh.click(None, js="window.location.reload()")
 
 
