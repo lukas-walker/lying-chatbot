@@ -12,6 +12,8 @@ with open("script.js", "r") as f:
     script = f.read()
 with open("keypad.html", "r") as f:
     keypad_html = f.read()
+with open("keypad_mobile.html", "r") as f:
+    keypad_mobile_html = f.read()
 
 head = f"""
 <style>{style}</style>
@@ -76,15 +78,20 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             gr.HTML("""<a href="https://intersections.ch"><img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/></a>
                 """, elem_classes=["logo-image-container"])
 
+    with gr.Row():
+        with gr.Column(scale=1, min_width=90):
+            btn_reload = gr.Button(value="Neustart", elem_id="reset_button")
+        with gr.Column(scale=1, min_width=160):
+            btn_show_keypad_modal = gr.Button(value="Lösung eingeben", elem_id="keypad_modal_button", elem_classes=["mobile-only"])
+        with gr.Column(scale=10):
+            gr.Markdown("")
+
     with gr.Row(elem_classes=["chat_container_border"]):
         user_message_textbox = gr.Textbox(placeholder="Prompt...", label="Sprich mit den Chatbots!", elem_classes=["background_white"])
 
     with gr.Row():
-        with gr.Column(scale=10):
+        with gr.Column(scale=11):
             gr.Markdown("")
-        with gr.Column(scale=1, min_width=90):
-            btn_reload = gr.Button(value="Neustart", elem_id="reset_button")
-            btn_reload.click(None, js="window.location.reload()")
         with gr.Column(scale=1, min_width=90):
             send_btn = gr.Button("Senden", elem_id="send_button", elem_classes=["white-text"])
 
@@ -93,7 +100,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             gr.Markdown("## Chatbot A")
             chatbot_1 = gr.Chatbot(type="messages", height=500, label="", elem_classes=["chat_container_border", "chatbot_box", "black-text"], show_label=False, show_copy_button=False, show_share_button=False, show_copy_all_button=False)
             # Guessing section
-        with gr.Column(scale=1, elem_id="keypad_column"):
+        with gr.Column(scale=1, elem_id="keypad_column", elem_classes=["desktop-only"]):
             gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
             with gr.Row(elem_classes=["safe-combination"]):
                 gr.HTML(keypad_html)
@@ -107,16 +114,33 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
     hidden_textbox = gr.Textbox(visible=False)
 
-    with Modal(visible=False, allow_user_close=False) as modal:
+    # Keypad Modal for mobile
+    with Modal(visible=False, allow_user_close=True) as modal_keypad_mobile:
+        gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
+        with gr.Row(elem_classes=["safe-combination"]):
+            gr.HTML(keypad_mobile_html)
+        with gr.Column(scale=1):
+            gr.Markdown("")
+        with gr.Column(scale=2, min_width=400):
+            check_number_btn_mobile = gr.Button("Lösung überprüfen", elem_id="check_number_button_mobile", elem_classes=["background_white"])
+        with gr.Column(scale=1):
+            gr.Markdown("")
+
+        gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
+
+    # End Modal
+    with Modal(visible=False, allow_user_close=False) as modal_finish:
         gr.Markdown("Du hast geraten, dass die richtige Zahl die folgende ist: ")
+        modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()
         modal_message_statistic_markdown = gr.Markdown()
         gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
         btn_refresh = gr.Button(value="Neustart", elem_id="reload_page", elem_classes=["white-text"])
-        btn_refresh.click(None, js="window.location.reload()")
 
+    def show_modal_keypad():
+        return gr.update(visible=True)
 
-    def show_modal(correct_number, number_guess):
+    def show_modal_finish(correct_number, number_guess):
         global number_guessed_correct
         global number_guessed_wrong
 
@@ -129,7 +153,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
         statistic_message = f"Bis jetzt haben {number_guessed_correct} Mitspielende richtig geraten, während {number_guessed_wrong} Mitspielende falsch geraten haben."
 
-        return gr.update(visible=True), message, statistic_message
+        return gr.update(visible=True), message, statistic_message, str(number_guess), gr.update(visible=False)
 
     def check_number(correct_number, number_guess):
         if correct_number == number_guess:
@@ -142,6 +166,10 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     ####
     # LOGIC
     ####
+
+    btn_reload.click(None, js="window.location.reload()")
+    btn_refresh.click(None, js="window.location.reload()")
+    btn_show_keypad_modal.click(fn=show_modal_keypad, inputs=[], outputs=[modal_keypad_mobile])
 
     # Send message flow
     send_btn.click(
@@ -179,10 +207,17 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         outputs=hidden_textbox,
         js="()=>getNumberGuess()"
     )
+    # Guessing section
+    check_number_btn_mobile.click(
+        fn=None,
+        inputs=[],
+        outputs=hidden_textbox,
+        js="()=>getNumberGuessMobile()"
+    )
     hidden_textbox.change(
-        fn=show_modal,
+        fn=show_modal_finish,
         inputs=[state_correct_number, hidden_textbox],
-        outputs=[modal, modal_message_markdown, modal_message_statistic_markdown]
+        outputs=[modal_finish, modal_message_markdown, modal_message_statistic_markdown, modal_correct_number_markdown, modal_keypad_mobile]
     )
 
     # start game initially

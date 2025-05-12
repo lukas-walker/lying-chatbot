@@ -18,10 +18,12 @@ body input {
 }
 
 /* RESPONSIVENESS */
-#desktop-view { display: inherit; }
-.desktop-only { display: inherit; }
-#mobile-view { display: none; }
-.mobile-only { display: none; }
+@media (min-width: 1301px) {
+    #desktop-view { display: inherit !important; }
+    .desktop-only { display: inherit !important; }
+    #mobile-view { display: none !important; }
+    .mobile-only { display: none !important; }
+}
 
 @media (max-width: 1300px) {
     #desktop-view { display: none !important; }
@@ -209,7 +211,7 @@ button, .chat_container_border {
 }*/
 
 /* Shared styles for inputs and buttons */
-.digit-input, .grid-container button {
+.digit-input, .digit-input-mobile, .grid-container button {
   width: 100%;                   /* Make input and buttons fill the available space */
   height: 40px;                  /* Fixed height for consistency */
   font-size: 1rem!important;                /* Use viewport width (vw) to make the font size scalable */
@@ -225,16 +227,16 @@ button, .chat_container_border {
 }
 
 /* Focus and hover states */
-.digit-input:focus, .grid-container button:hover {
+.digit-input:focus, .digit-input-mobile:focus, .grid-container button:hover {
   background-color: #d2688c;     /* Light green on focus or hover */
 }
 
 /* Valid and invalid input styles */
-.digit-input:valid {
+.digit-input:valid, .digit-input-mobile:valid {
   background-color: #ffffff;     /* Light green when valid */
 }
 
-.digit-input:invalid {
+.digit-input:invalid, .digit-input-mobile:invalid {
   background-color: #f2dede;     /* Light red when invalid */
 }
 
