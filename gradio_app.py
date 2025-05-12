@@ -120,10 +120,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Row(elem_classes=["safe-combination"]):
             gr.HTML(keypad_mobile_html)
 
+        with gr.Row():
             check_number_btn_mobile = gr.Button("Lösung überprüfen", elem_id="check_number_button_mobile", elem_classes=["background_white"])
-
-
-        gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
+            gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
 
     # End Modal
     with Modal(visible=False, allow_user_close=False, elem_classes=["background_white_modal"]) as modal_finish:
