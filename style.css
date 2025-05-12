@@ -88,6 +88,7 @@ button, .chat_container_border {
     overflow: visible!important;
     height: 70px;
   position: relative; /* Make sure the accordion is positioned relative */
+    box-shadow: none!important;
 }
 
 .introduction_text_column div {
