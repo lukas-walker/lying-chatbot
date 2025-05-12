@@ -66,11 +66,6 @@ function deleteLastDigit() {
   check_number_guess_valid()
 }
 
-function reset_keypad() {
-    document.getElementById('input1').value = "";
-    document.getElementById('input2').value = "";
-    document.getElementById('input3').value = "";
-}
 
 function getNumberGuess() {
     input1 = document.getElementById('input1').value;

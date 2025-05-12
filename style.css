@@ -3,16 +3,27 @@ footer {
     visibility: hidden;
 }
 
+body {
+    color: black;
+}
+
 /* RESPONSIVENESS */
 #desktop-view { display: inherit; }
+.desktop-only { display: inherit; }
 #mobile-view { display: none; }
+.mobile-only { display: none; }
 
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
     #desktop-view { display: none !important; }
+    .desktop-only { display: none !important; }
     #mobile-view { display: inherit !important; }
+    .mobile-only{ display: inherit !important; }
 }
 
 /* General settings */
+
+
+
 .gradio-container {
     background-image:url("https://intersections.ch/wp-content/uploads/2024/08/Intersections-bg-scaled.jpg");
     background-size: cover;
@@ -40,13 +51,17 @@ button, .chat_container_border {
   border: 1px solid #333!important
 }
 
+.background_white, .background_white .block {
+    background: white!important;
+}
+
 /* Introduction text */
 .introduction_text_column {
     background: transparent;
     box-sizing: inherit!important;
     border-width: 0!important;
     border-style: none!important;
-  position: relative; /* Make sure it's positioned relative to its parent */
+    position: relative; /* Make sure it's positioned relative to its parent */
     overflow: visible!important;
 }
 .introduction_text_accordion {
@@ -82,7 +97,7 @@ button, .chat_container_border {
   transform: translateY(0); /* Optional: for smooth entrance */
 }
 
-.info-text-box {
+.info-text-box .info-text-box {
   border-radius: 5px !important;
   border: 1px solid black !important;
   background-color: white!important;
@@ -103,6 +118,10 @@ button, .chat_container_border {
   background: #ffffff40!important;
 }
 
+.chatbot_box div {
+  background: transparent;
+}
+
 .introduction_text {
     color: white;
 }
@@ -112,6 +131,7 @@ button, .chat_container_border {
     padding-right: 0!important;
     padding-bottom: 20px!important;
 }
+
 
 
 /* General font settings */
@@ -128,7 +148,7 @@ button, .chat_container_border {
 .black-text h1,
 .black-text h2,
 .black-text h3 {
-    color: #333!important;
+    color: black!important;
 }
 
 .bold-text,
