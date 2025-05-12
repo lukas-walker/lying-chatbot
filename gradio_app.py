@@ -82,7 +82,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Column(scale=1, min_width=90):
             btn_reload = gr.Button(value="Neustart", elem_id="reset_button")
         with gr.Column(scale=1, min_width=160):
-            btn_show_keypad_modal = gr.Button(value="Lösung eingeben", elem_id="keypad_modal_button", elem_classes=["mobile-only"])
+            btn_show_keypad_modal = gr.Button(value="Lösung eingeben", elem_id="keypad_modal_button", elem_classes=["mobile-only", "background_white"])
         with gr.Column(scale=10):
             gr.Markdown("")
 
@@ -115,7 +115,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     hidden_textbox = gr.Textbox(visible=False)
 
     # Keypad Modal for mobile
-    with Modal(visible=False, allow_user_close=True) as modal_keypad_mobile:
+    with Modal(visible=False, allow_user_close=True, elem_classes=["background_white"]) as modal_keypad_mobile:
         gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
         with gr.Row(elem_classes=["safe-combination"]):
             gr.HTML(keypad_mobile_html)
@@ -129,7 +129,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
 
     # End Modal
-    with Modal(visible=False, allow_user_close=False) as modal_finish:
+    with Modal(visible=False, allow_user_close=False, elem_classes=["background_white"]) as modal_finish:
         gr.Markdown("Du hast geraten, dass die richtige Zahl die folgende ist: ")
         modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()

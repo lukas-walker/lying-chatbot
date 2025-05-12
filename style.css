@@ -13,7 +13,8 @@ body h4,
 body em,
 body button,
 body span,
-body input {
+body input,
+body textarea {
     color: black!important;
 }
 
