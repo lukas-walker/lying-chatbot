@@ -65,7 +65,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             with gr.Row():
                 gr.Markdown("# Der lügende Chatbot")
                 gr.HTML("""<a href="https://intersections.ch"><img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/></a>
-                                """, elem_classes=["logo-image-container", "mobile-only"])
+                                """, elem_classes=["logo-image-container-mobile", "mobile-only"])
             with gr.Accordion("Worum gehts?", elem_classes=["introduction_text_accordion"], open=False):
                 gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_",
                             elem_id="introduction_text",

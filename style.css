@@ -12,7 +12,8 @@ body h3,
 body h4,
 body em,
 body button,
-body span {
+body span,
+body input {
     color: black!important;
 }
 
@@ -147,6 +148,15 @@ button, .chat_container_border {
     padding-top: 0!important;
     padding-right: 0!important;
     padding-bottom: 20px!important;
+}
+
+.logo-image-container-mobile {
+    padding-top: 0!important;
+    padding-right: 0!important;
+    width:100%;
+}
+.logo-image-container-mobile img {
+    width:100%;
 }
 
 
