@@ -119,12 +119,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
         with gr.Row(elem_classes=["safe-combination"]):
             gr.HTML(keypad_mobile_html)
-        with gr.Column(scale=1):
-            gr.Markdown("")
-        with gr.Column(scale=2, min_width=400):
+
             check_number_btn_mobile = gr.Button("Lösung überprüfen", elem_id="check_number_button_mobile", elem_classes=["background_white"])
-        with gr.Column(scale=1):
-            gr.Markdown("")
+
 
         gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
 
