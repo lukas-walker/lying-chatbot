@@ -115,7 +115,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     hidden_textbox = gr.Textbox(visible=False)
 
     # Keypad Modal for mobile
-    with Modal(visible=False, allow_user_close=True, elem_classes=["background_white"]) as modal_keypad_mobile:
+    with Modal(visible=False, allow_user_close=True, elem_classes=["background_white_modal"]) as modal_keypad_mobile:
         gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
         with gr.Row(elem_classes=["safe-combination"]):
             gr.HTML(keypad_mobile_html)
@@ -129,7 +129,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         gr.Markdown("_Achtung! Du hast nur eine Chance!_", elem_classes=["info-text-box", "float-right"])
 
     # End Modal
-    with Modal(visible=False, allow_user_close=False, elem_classes=["background_white"]) as modal_finish:
+    with Modal(visible=False, allow_user_close=False, elem_classes=["background_white_modal"]) as modal_finish:
         gr.Markdown("Du hast geraten, dass die richtige Zahl die folgende ist: ")
         modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()

@@ -68,7 +68,10 @@ button, .chat_container_border {
     border: none!important;
 }
 
-.background_white, .background_white .block {
+.background_white,
+.background_white .block,
+.background_white_modal .modal-container div,
+.background_white_modal .modal-container div .close{
     background: white!important;
 }
 .background_white textarea {
