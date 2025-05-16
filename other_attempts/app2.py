@@ -21,9 +21,9 @@ randomizer = random.randint(0, 1)
 correct_number = random.randint(0, 999)
 wrong_number = random.randint(0, 999)
 
-with open("system_prompt_truth.txt", "r") as file:
+with open("system_prompt_truth_EN.txt", "r") as file:
     truth_instr = file.read().replace("\n", "")
-with open("system_prompt_liar.txt", "r") as file:
+with open("system_prompt_liar_EN_level2.txt", "r") as file:
     liar_instr = file.read().replace("\n", "")
 
 # Define system prompts for each assistant

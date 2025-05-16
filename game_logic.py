@@ -10,6 +10,8 @@ def init_game():
     """Initialize the game with random numbers and liar state"""
     correct = random.randint(0, 999)
     wrong = random.randint(0, 999)
+    while wrong == correct:
+        wrong = random.randint(0, 999)
     liar_first = random.choice([True, False])
     return correct, wrong, liar_first
 

@@ -139,3 +139,26 @@ function getNumberGuessMobile() {
     input3 = document.getElementById('input3_mobile').value;
     return input1 + input2 + input3;
 }
+
+
+const ctx = document.getElementById('finish_chart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Correct', 'Wrong'],
+      datasets: [{
+        label: 'Answers',
+        data: [5, 6],
+        backgroundColor: ['green', 'red']
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          precision: 0
+        }
+      }
+    }
+  });

@@ -42,19 +42,19 @@ body textarea {
     background-size: cover;
 }
 
-#send_button, #reload_page{
+#send_button, #reload_page, .close_modal_button{
     color:white;
     background:black;
 }
-#send_button:hover, #reload_page:hover{
+#send_button:hover, #reload_page:hover, .close_modal_button:hover{
     color:white;
     background: #2f2f2f;
 }
 
-#reset_button{
+#reset_button, #about_button{
     background:transparent;
 }
-#reset_button:hover{
+#reset_button:hover, #about_button:hover{
     background: #ffffff20;
     color:black
 }

@@ -26,9 +26,9 @@ def make_system_prompts_template():
     Returns:
         truth_instr (str), lie_instr (str)
     """
-    with open("system_prompt_truth.txt", "r") as file:
+    with open("system_prompt_truth_EN.txt", "r") as file:
         truth_instr = file.read().replace("\n", "")
-    with open("system_prompt_liar.txt", "r") as file:
+    with open("system_prompt_liar_EN_level2.txt", "r") as file:
         liar_instr = file.read().replace("\n", "")
 
     return truth_instr, liar_instr

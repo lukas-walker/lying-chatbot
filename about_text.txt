@@ -1,0 +1,11 @@
+# Das Orakel von Intersections
+
+## Spielanleitung
+Gib dem Orakel eine beliebige Frage oder ein Szenario ein – dein Prompt wird gleichzeitig an zwei Chatbots geschickt: Chatbot A und Chatbot B. Beide kennen die gesuchte dreistellige Zahl, doch einer von ihnen lügt. Die Bots antworten unabhängig voneinander, ohne zu wissen, was der andere sagt. Deine Aufgabe ist es, anhand der Antworten herauszufinden, wer die Wahrheit sagt – und wer lügt. Du hast nur einen Versuch: Entscheide dich für den Bot, dem du glaubst, und tippe dessen genannte Zahl ein.
+
+## Über das Orakel-Spiel
+Das Orakel-Spiel macht erfahrbar, dass nicht jeder Chatbot vertrauenswürdig ist – und dass Lügen schwer zu erkennen sind, wenn keine menschliche Mimik, Gestik oder Tonlage helfen kann. In einer Zukunft, in der Chatbots überall präsent sind, hilft das Spiel, spielerisch Strategien für kritisches Hinterfragen und digitale Urteilsfähigkeit zu entwickeln.
+
+## Über Intersections
+
+Intersections befähigt Menschen mit Wissen und Tools, um die KI-Transformation sicher, verantwortungswürdig und effektiv zu gestalten. [Finde mehr heraus](https://intersections.ch/)

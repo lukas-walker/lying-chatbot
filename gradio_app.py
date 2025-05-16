@@ -15,9 +15,13 @@ with open("keypad.html", "r") as f:
 with open("keypad_mobile.html", "r") as f:
     keypad_mobile_html = f.read()
 
+with open("about_text.txt", "r") as f:
+    about_text = f.read()
+
 head = f"""
 <style>{style}</style>
 <script>{script}</script>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 """
 
 
@@ -68,10 +72,11 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
                 gr.Markdown("# Der lügende Chatbot")
                 gr.HTML("""<a href="https://intersections.ch"><img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/></a>
                                 """, elem_classes=["logo-image-container-mobile", "mobile-only"])
-            with gr.Accordion("Worum gehts?", elem_classes=["introduction_text_accordion"], open=False):
-                gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_",
-                            elem_id="introduction_text",
-                            elem_classes=["black-text"])
+
+            # with gr.Accordion("Worum gehts?", elem_classes=["introduction_text_accordion"], open=False):
+            #     gr.Markdown("Zwei ChatBots, ein dreistelliger Geheimcode – aber nur einer sagt die Wahrheit! Kannst du den Code knacken?<br>_Hinweis: Die beiden Bots können nicht lesen, was der andere schreibt!_",
+            #                 elem_id="introduction_text",
+            #                 elem_classes=["black-text"])
         with gr.Column(elem_classes=["desktop-only"]):
             gr.Markdown("")
         with gr.Column(elem_classes=["logo-image-container-column", "desktop-only"]):
@@ -79,7 +84,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
                 """, elem_classes=["logo-image-container"])
 
     with gr.Row():
-        with gr.Column(scale=1, min_width=90):
+        with gr.Column(scale=1, min_width=160):
+            btn_about = gr.Button(value="Worum gehts?", elem_id="about_button")
+        with gr.Column(scale=1, min_width=160):
             btn_reload = gr.Button(value="Neustart", elem_id="reset_button")
         with gr.Column(scale=1, min_width=160):
             btn_show_keypad_modal = gr.Button(value="Lösung eingeben", elem_id="keypad_modal_button", elem_classes=["mobile-only", "background_white"])
@@ -131,11 +138,25 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()
         modal_message_statistic_markdown = gr.Markdown()
+        gr.HTML("<canvas id=\"finish_chart\" width=\"400\" height=\"200\"></canvas>")
         gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
         btn_refresh = gr.Button(value="Neustart", elem_id="reload_page", elem_classes=["white-text"])
 
-    def show_modal_keypad():
+    with Modal(visible=False, allow_user_close=True, elem_classes=["background_white_modal"]) as modal_about:
+        gr.Markdown(about_text)
+        with gr.Row():
+            with gr.Column(scale=11):
+                gr.Markdown("")
+            with gr.Column(scale=1, min_width=90):
+                btn_close_about_modal = gr.Button("Schliessen", elem_id="send_button", elem_classes=["close_modal_button"])
+
+
+    # opens any modal (sets it to visible)
+    def show_modal():
         return gr.update(visible=True)
+
+    def hide_modal():
+        return gr.update(visible=False)
 
     def show_modal_finish(correct_number, number_guess):
         global number_guessed_correct
@@ -166,7 +187,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
     btn_reload.click(None, js="window.location.reload()")
     btn_refresh.click(None, js="window.location.reload()")
-    btn_show_keypad_modal.click(fn=show_modal_keypad, inputs=[], outputs=[modal_keypad_mobile])
+    btn_about.click(fn=show_modal, inputs=[], outputs=[modal_about])
+    btn_close_about_modal.click(fn=hide_modal, inputs=[], outputs=[modal_about])
+    btn_show_keypad_modal.click(fn=show_modal, inputs=[], outputs=[modal_keypad_mobile])
 
     # Send message flow
     send_btn.click(
