@@ -131,11 +131,19 @@ button, .chat_container_border {
   transform: translateY(0); /* Optional: for smooth entrance */
 }
 
-.info-text-box .info-text-box {
+.info-text-box .info-text-box, .info-text-box-custom {
   border-radius: 5px !important;
   border: 1px solid black !important;
   background-color: white!important;
   padding:7px!important;
+}
+
+.info-text-box-custom {
+  width: fit-content;
+    display:flex;
+    min-width:60%;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 

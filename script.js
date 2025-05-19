@@ -126,7 +126,10 @@ function deleteLastDigitMobile() {
 }
 
 function drawChart() {
-    /*const ctx = document.getElementById('finish_chart').getContext('2d');
+    const number_correct_guesses = parseInt(document.querySelector('#number_correct_guesses_textbox textarea').value);
+    const number_wrong_guesses = parseInt(document.querySelector('#number_wrong_guesses_textbox textarea').value);
+
+    const ctx = document.getElementById('finish_chart').getContext('2d');
 
     new Chart(ctx, {
         type: 'bar',
@@ -134,11 +137,22 @@ function drawChart() {
             labels: ['Richtig geraten', 'Falsch geraten'],
             datasets: [{
                 label: 'Bisherige Antworten',
-                data: [5, 6], // replace with real values
-                backgroundColor: ['green', 'red']
+                data: [number_correct_guesses, number_wrong_guesses], // replace with real values
+                backgroundColor: ['green', 'red'],
+                barThickness: 40 // smaller number = thinner bars
+
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Bisherige Antworten'
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true,
@@ -146,7 +160,7 @@ function drawChart() {
                 }
             }
         }
-    });*/
+    });
 }
 
 
@@ -167,4 +181,13 @@ function getNumberGuessMobile() {
 }
 
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const observer = new MutationObserver(() => {
+        const val = document.querySelector('textarea[aria-label="textbox"]').value;
+        console.log("Updated value:", val);
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
 

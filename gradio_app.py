@@ -57,7 +57,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
             system_prompt_1.value = truth_prompt
             system_prompt_2.value = lie_prompt
 
-        return state_history_1.value, state_history_2.value
+        return state_history_1.value, state_history_2.value, str(number_guessed_correct), str(number_guessed_wrong)
 
     ####
     # LAYOUT
@@ -69,7 +69,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     with gr.Row():
         with gr.Column(elem_classes=["introduction_text_column"]):
             with gr.Row():
-                gr.Markdown("# Der lügende Chatbot")
+                gr.Markdown("# Das Orakel von Intersections")
                 gr.HTML("""<a href="https://intersections.ch"><img src="https://intersections.ch/wp-content/uploads/2024/06/Outline-Transparent-Gross.svg" alt="Intersections Logo"/></a>
                                 """, elem_classes=["logo-image-container-mobile", "mobile-only"])
 
@@ -120,6 +120,8 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
 
     hidden_textbox = gr.Textbox(visible=False)
+    number_correct_guesses_textbox = gr.Textbox(visible=False, elem_id="number_correct_guesses_textbox")
+    number_wrong_guesses_textbox = gr.Textbox(visible=False, elem_id="number_wrong_guesses_textbox")
 
     # Keypad Modal for mobile
     with Modal(visible=False, allow_user_close=True, elem_classes=["background_white_modal"]) as modal_keypad_mobile:
@@ -133,14 +135,13 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
     # End Modal
     with Modal(visible=False, allow_user_close=False, elem_classes=["background_white_modal"]) as modal_finish:
-        gr.Markdown("Du hast geraten, dass die richtige Zahl die folgende ist: ")
-        modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()
         modal_message_statistic_markdown = gr.Markdown()
 
-        #gr.HTML("<canvas id=\"finish_chart\" style=\"height:200px\"></canvas>")
+        gr.HTML("<canvas id=\"finish_chart\"></canvas>")
 
-        gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
+        modal_message_additional_information_markdown = gr.HTML()
+
         btn_refresh = gr.Button(value="Neustart", elem_id="reload_page", elem_classes=["white-text"])
 
     with Modal(visible=False, allow_user_close=True, elem_classes=["background_white_modal"]) as modal_about:
@@ -148,7 +149,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         with gr.Row():
             with gr.Column(scale=11):
                 gr.Markdown("")
-            with gr.Column(scale=1, min_width=90):
+            with gr.Column(scale=1, min_width=120):
                 btn_close_about_modal = gr.Button("Schliessen", elem_id="send_button", elem_classes=["close_modal_button"])
 
 
@@ -163,16 +164,58 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         global number_guessed_correct
         global number_guessed_wrong
 
+        statistic_message = f"""
+        Vor dir haben **{number_guessed_correct}** Mitspielende richtig geraten, während **{number_guessed_wrong}** Mitspielende falsch geraten haben.
+        """
+
         if (correct_number == int(number_guess)):
-            message = f"Genau! Die richtige Kombination ist {correct_number}!"
+            message = f"""
+            ## Richtig!
+            
+            Du hast dich vom lügenden Chatbot nicht verwirren lassen und hast erkannt, dass die richtige Kombination **{correct_number}** ist. Gut gemacht!
+            """
             number_guessed_correct += 1
         else:
-            message = f"Leider ist das falsch. Die richtige Kombination ist {correct_number}"
+            message = f"""
+            ## Falsch :-(
+
+            Du hast dich vom lügenden Chatbot verwirren lassen: Die richtige Kombination war **{correct_number}**. Leider hast du die Zahl **{number_guess}** eingegeben.
+            """
             number_guessed_wrong += 1
 
-        statistic_message = f"Bis jetzt haben {number_guessed_correct} Mitspielende richtig geraten, während {number_guessed_wrong} Mitspielende falsch geraten haben."
+        additional_info_message = f"""
+            <h2> Einige Fragen </h2
+            
+            <p>Das Orakel von Intersections zeigt spürbar, dass nicht jeder Chatbot unbedingt in gutem Gewissen handelt. Hier sind einige Fragen, die du dir zu diesem Thema stellen kannst, wenn du möchtest: 
+            </p>
+            
+            <div style=\"display:flow-root\">
+                <div class=\"info-text-box-custom\"><span><p><em>
+                    Vertraue ich dem Chatbot, den ich vor mir habe?
+                </div></span></p></em>
+                <div class=\"info-text-box-custom float-right\"><span><p><em> 
+                    Wer hat den Chatbot gebaut und gegebenenfalls manipuliert?
+                </div></span></p></em>
+                <div class=\"info-text-box-custom\"><span><p><em> 
+                    Kann ich den Output des Chatbot überprüfen und sicherstellen, dass ich nicht selbst manipuliert werde?
+                </div></span></p></em>
+                <div class=\"info-text-box-custom float-right\"><span><p><em> 
+                    Wo werden Chatbots bereits heute eingesetzt?
+                </div></span></p></em>
+                <div class=\"info-text-box-custom\"><span><p><em> 
+                    Erkenne ich einen Chatbot immer auf den ersten Blick?
+                </div></span></p></em>
+                <div class=\"info-text-box-custom float-right\"><span><p><em> 
+                    Was passiert, wenn Chatbots nicht mehr unabsichtlich Fehlinformationen verbreiten? 
+                </div></span></p></em>
+                
+            </div>
+        <h2> Neuer Versuch? </h2>
+        <p>Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu. Die Zahlen und Chatbot A und B werden dann zufällig neu gewählt.
+        </p>
+        """
 
-        return gr.update(visible=True), message, statistic_message, str(number_guess), gr.update(visible=False)
+        return message, statistic_message, additional_info_message, gr.update(visible=True), gr.update(visible=False)
 
     def check_number(correct_number, number_guess):
         if correct_number == number_guess:
@@ -238,14 +281,14 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     hidden_textbox.change(
         fn=show_modal_finish,
         inputs=[state_correct_number, hidden_textbox],
-        outputs=[modal_finish, modal_message_markdown, modal_message_statistic_markdown, modal_correct_number_markdown, modal_keypad_mobile]
+        outputs=[modal_message_markdown, modal_message_statistic_markdown, modal_message_additional_information_markdown, modal_finish, modal_keypad_mobile]
     )
 
     # start game initially
     demo.load(
         fn=init_session_state,
         inputs=[],
-        outputs=[chatbot_1, chatbot_2],
+        outputs=[chatbot_1, chatbot_2, number_correct_guesses_textbox, number_wrong_guesses_textbox],
         js="() => check_number_guess_valid()"
     )
 
