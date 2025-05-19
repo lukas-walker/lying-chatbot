@@ -53,8 +53,8 @@ body textarea {
 }
 
 #send_button, #reload_page, .close_modal_button{
-    color:white;
-    background:black;
+    color:white!important;
+    background:black!important;
 }
 #send_button:hover, #reload_page:hover, .close_modal_button:hover{
     color:white;
