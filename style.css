@@ -14,7 +14,8 @@ body em,
 body button,
 body span,
 body input,
-body textarea {
+body textarea,
+body strong {
     color: black!important;
 }
 
