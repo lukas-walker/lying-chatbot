@@ -126,7 +126,6 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         gr.Markdown("## Lösung", elem_classes=["black-text", "align-center"])
         with gr.Row(elem_classes=["safe-combination"]):
             gr.HTML(keypad_mobile_html)
-
         with gr.Row():
             check_number_btn_mobile = gr.Button("Lösung überprüfen", elem_id="check_number_button_mobile", elem_classes=["background_white"])
         with gr.Row():
@@ -138,7 +137,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         modal_correct_number_markdown = gr.Markdown()
         modal_message_markdown = gr.Markdown()
         modal_message_statistic_markdown = gr.Markdown()
-        gr.HTML("<canvas id=\"finish_chart\" width=\"400\" height=\"200\"></canvas>")
+
+        #gr.HTML("<canvas id=\"finish_chart\" style=\"height:200px\"></canvas>")
+
         gr.Markdown("Danke fürs Mitspielen! Um erneut zu spielen, bitte lade die Seite neu.")
         btn_refresh = gr.Button(value="Neustart", elem_id="reload_page", elem_classes=["white-text"])
 

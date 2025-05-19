@@ -125,11 +125,36 @@ function deleteLastDigitMobile() {
   check_number_guess_valid(true)
 }
 
+function drawChart() {
+    /*const ctx = document.getElementById('finish_chart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Richtig geraten', 'Falsch geraten'],
+            datasets: [{
+                label: 'Bisherige Antworten',
+                data: [5, 6], // replace with real values
+                backgroundColor: ['green', 'red']
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });*/
+}
+
 
 function getNumberGuess() {
     input1 = document.getElementById('input1').value;
     input2 = document.getElementById('input2').value;
     input3 = document.getElementById('input3').value;
+    drawChart();
     return input1 + input2 + input3;
 }
 
@@ -137,28 +162,9 @@ function getNumberGuessMobile() {
     input1 = document.getElementById('input1_mobile').value;
     input2 = document.getElementById('input2_mobile').value;
     input3 = document.getElementById('input3_mobile').value;
+    drawChart();
     return input1 + input2 + input3;
 }
 
 
-const ctx = document.getElementById('finish_chart').getContext('2d');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Correct', 'Wrong'],
-      datasets: [{
-        label: 'Answers',
-        data: [5, 6],
-        backgroundColor: ['green', 'red']
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          precision: 0
-        }
-      }
-    }
-  });

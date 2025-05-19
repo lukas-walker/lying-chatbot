@@ -24,6 +24,11 @@ body textarea {
     .desktop-only { display: inherit !important; }
     #mobile-view { display: none !important; }
     .mobile-only { display: none !important; }
+    #finish_chart {
+        width: 50%!important;
+        height: 50%!important;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 1300px) {
@@ -31,6 +36,11 @@ body textarea {
     .desktop-only { display: none !important; }
     #mobile-view { display: inherit !important; }
     .mobile-only{ display: inherit !important; }
+    #finish_chart {
+        width: 100%!important;
+        height: 100%!important;
+        margin: 0 auto;
+    }
 }
 
 /* General settings */
