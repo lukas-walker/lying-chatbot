@@ -1,3 +1,12 @@
+// manage shadow DOM
+function grRoot() {
+  const app = document.querySelector('gradio-app');
+  return app && app.shadowRoot ? app.shadowRoot : document; // fallback if no shadow DOM
+}
+function byId(id)     { return grRoot().getElementById(id); }
+function qs(sel)      { return grRoot().querySelector(sel); }
+function qsa(sel)     { return grRoot().querySelectorAll(sel); }
+
 function moveFocus(currentInput, event) {
     // Allow only digits
     currentInput.value = currentInput.value.replace(/[^0-9]/, '');
@@ -45,27 +54,26 @@ function moveFocusMobile(currentInput, event) {
 }
 
 function check_number_guess_valid(mobile=false) {
-    let suffix = "";
-    if (mobile) suffix = "_mobile"
-    const input1 = document.getElementById('input1'+suffix).value;
-    const input2 = document.getElementById('input2'+suffix).value;
-    const input3 = document.getElementById('input3'+suffix).value;
+    let suffix = mobile ? "_mobile" : "";
+    const input1 = byId('input1'+suffix)?.value || "";
+    const input2 = byId('input2'+suffix)?.value || "";
+    const input3 = byId('input3'+suffix)?.value || "";
 
     // Check if all three inputs are valid digits
     const valid = /^[0-9]{1}$/.test(input1) && /^[0-9]{1}$/.test(input2) && /^[0-9]{1}$/.test(input3);
 
     // Enable or disable the button based on the validity of the inputs
-    const button = document.querySelector('#check_number_button');
-    button.disabled = !valid;  // Disable if not all inputs are valid
+    const button = qs('#check_number_button');
+    if (button) button.disabled = !valid;  // Disable if not all inputs are valid
 
-    const button_mobile = document.querySelector('#check_number_button_mobile');
-    button_mobile.disabled = !valid;  // Disable if not all inputs are valid
+    const button_mobile = qs('#check_number_button_mobile');
+    if (button_mobile) button_mobile.disabled = !valid;  // Disable if not all inputs are valid
 }
 
 // Add digit to the next available input field when a keypad button is clicked
 function addDigit(digit) {
   // Find the first empty input field
-  let inputs = document.querySelectorAll('.digit-input');
+  let inputs = qsa('.digit-input');
   for (let input of inputs) {
     if (input.value === '') {
       input.value = digit;  // Set the value of the input to the clicked digit
@@ -80,7 +88,7 @@ function addDigit(digit) {
 // Add digit to the next available input field when a keypad button is clicked
 function addDigitMobile(digit) {
   // Find the first empty input field
-  let inputs = document.querySelectorAll('.digit-input-mobile');
+  let inputs = qsa('.digit-input-mobile');
   for (let input of inputs) {
     if (input.value === '') {
       input.value = digit;  // Set the value of the input to the clicked digit
@@ -95,7 +103,7 @@ function addDigitMobile(digit) {
 
 // Function to delete the last entered digit
 function deleteLastDigit() {
-  let inputs = document.querySelectorAll('.digit-input');
+  let inputs = qsa('.digit-input');
 
   // Loop through inputs in reverse order to find the last non-empty input
   for (let i = inputs.length - 1; i >= 0; i--) {
@@ -111,7 +119,7 @@ function deleteLastDigit() {
 
 // Function to delete the last entered digit
 function deleteLastDigitMobile() {
-  let inputs = document.querySelectorAll('.digit-input-mobile');
+  let inputs = qsa('.digit-input-mobile');
 
   // Loop through inputs in reverse order to find the last non-empty input
   for (let i = inputs.length - 1; i >= 0; i--) {
@@ -125,11 +133,22 @@ function deleteLastDigitMobile() {
   check_number_guess_valid(true)
 }
 
-function drawChart() {
-    const number_correct_guesses = parseInt(document.querySelector('#number_correct_guesses_textbox textarea').value);
-    const number_wrong_guesses = parseInt(document.querySelector('#number_wrong_guesses_textbox textarea').value);
 
-    const ctx = document.getElementById('finish_chart').getContext('2d');
+const observer = new MutationObserver(() => {
+  const canvas = byId("finish_chart");
+  if (canvas) {
+    drawChart();
+    observer.disconnect(); // stop after first render
+  }
+});
+
+observer.observe(grRoot(), { childList: true, subtree: true });
+
+function drawChart() {
+    const number_correct_guesses = parseInt(qs('#number_correct_guesses_textbox textarea')?.value);
+    const number_wrong_guesses = parseInt(qs('#number_wrong_guesses_textbox textarea')?.value);
+
+    const ctx = byId('finish_chart').getContext('2d');
 
     new Chart(ctx, {
         type: 'bar',
@@ -165,18 +184,16 @@ function drawChart() {
 
 
 function getNumberGuess() {
-    input1 = document.getElementById('input1').value;
-    input2 = document.getElementById('input2').value;
-    input3 = document.getElementById('input3').value;
-    drawChart();
+    input1 = byId('input1').value;
+    input2 = byId('input2').value;
+    input3 = byId('input3').value;
     return input1 + input2 + input3;
 }
 
 function getNumberGuessMobile() {
-    input1 = document.getElementById('input1_mobile').value;
-    input2 = document.getElementById('input2_mobile').value;
-    input3 = document.getElementById('input3_mobile').value;
-    drawChart();
+    input1 = byId('input1_mobile').value;
+    input2 = byId('input2_mobile').value;
+    input3 = byId('input3_mobile').value;
     return input1 + input2 + input3;
 }
 
@@ -184,7 +201,7 @@ function getNumberGuessMobile() {
 
 document.addEventListener('DOMContentLoaded', function () {
     const observer = new MutationObserver(() => {
-        const val = document.querySelector('textarea[aria-label="textbox"]').value;
+        const val = qs('textarea[aria-label="textbox"]').value;
         console.log("Updated value:", val);
     });
 

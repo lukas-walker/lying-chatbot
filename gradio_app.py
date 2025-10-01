@@ -119,9 +119,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
 
 
 
-    hidden_textbox = gr.Textbox(visible=False)
-    number_correct_guesses_textbox = gr.Textbox(visible=False, elem_id="number_correct_guesses_textbox")
-    number_wrong_guesses_textbox = gr.Textbox(visible=False, elem_id="number_wrong_guesses_textbox")
+    hidden_textbox = gr.Textbox(visible=True, elem_classes=["hidden-data"])
+    number_correct_guesses_textbox = gr.Textbox(visible=True, elem_id="number_correct_guesses_textbox", elem_classes=["hidden-data"])
+    number_wrong_guesses_textbox = gr.Textbox(visible=True, elem_id="number_wrong_guesses_textbox", elem_classes=["hidden-data"])
 
     # Keypad Modal for mobile
     with Modal(visible=False, allow_user_close=True, elem_classes=["background_white_modal"]) as modal_keypad_mobile:

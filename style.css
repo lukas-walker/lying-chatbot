@@ -44,6 +44,12 @@ body strong {
     }
 }
 
+/* hide hidden data */
+.hidden-data {
+    display: none !important;
+}
+
+
 /* General settings */
 
 
