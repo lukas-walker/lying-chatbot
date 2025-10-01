@@ -46,7 +46,7 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
         else:
             sp1, sp2 = truth_prompt, lie_prompt
 
-        return correct_number, wrong_number, sp1, sp2, [], []
+        return correct_number, number_guessed_correct, wrong_number, number_guessed_wrong, sp1, sp2, [], []
 
     ####
     # LAYOUT
@@ -277,7 +277,8 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     demo.load(
         fn=init_session_state,
         inputs=[],
-        outputs=[state_correct_number, state_wrong_number,
+        outputs=[state_correct_number, number_correct_guesses_textbox,
+                 state_wrong_number, number_wrong_guesses_textbox,
                  system_prompt_1, system_prompt_2,
                  chatbot_1, chatbot_2]
     )
