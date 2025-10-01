@@ -31,33 +31,22 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     # STATE
     ####
 
-    # defines the format of the session state
-    state_correct_number = gr.State(None)
-    state_wrong_number = gr.State(None)
-    state_history_1 = gr.State([])
-    state_history_2 = gr.State([])
-    system_prompt_1 = gr.State("")
-    system_prompt_2 = gr.State("")
+    state_correct_number = gr.State()
+    state_wrong_number = gr.State()
+    system_prompt_1 = gr.State()
+    system_prompt_2 = gr.State()
 
-    # starts a new session state (empty) for every user on every reload
+
     def init_session_state():
         correct_number, wrong_number, liar_first = init_game()
         truth_prompt, lie_prompt = make_system_prompts(correct_number, wrong_number)
 
-        state_correct_number.value = correct_number
-        state_wrong_number.value = wrong_number
-        state_history_1.value = []
-        state_history_2.value = []
-
-        # randomize which bot gets which system prompt
         if liar_first:
-            system_prompt_1.value = lie_prompt
-            system_prompt_2.value = truth_prompt
+            sp1, sp2 = lie_prompt, truth_prompt
         else:
-            system_prompt_1.value = truth_prompt
-            system_prompt_2.value = lie_prompt
+            sp1, sp2 = truth_prompt, lie_prompt
 
-        return state_history_1.value, state_history_2.value, str(number_guessed_correct), str(number_guessed_wrong)
+        return correct_number, wrong_number, sp1, sp2, [], []
 
     ####
     # LAYOUT
@@ -288,8 +277,9 @@ with gr.Blocks(gr.themes.Monochrome(font=[gr.themes.GoogleFont("DM Sans"), "DM S
     demo.load(
         fn=init_session_state,
         inputs=[],
-        outputs=[chatbot_1, chatbot_2, number_correct_guesses_textbox, number_wrong_guesses_textbox],
-        js="() => check_number_guess_valid()"
+        outputs=[state_correct_number, state_wrong_number,
+                 system_prompt_1, system_prompt_2,
+                 chatbot_1, chatbot_2]
     )
 
 demo.launch(server_name="0.0.0.0", server_port=7860, favicon_path="intersections_ch_logo-32x32.ico")
