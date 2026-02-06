@@ -6,6 +6,14 @@ Gib dem Orakel eine beliebige Frage oder ein Szenario ein – dein Prompt wird g
 ## Über das Orakel-Spiel
 Das Orakel-Spiel macht erfahrbar, dass nicht jeder Chatbot vertrauenswürdig ist – und dass Lügen schwer zu erkennen sind, wenn keine menschliche Mimik, Gestik oder Tonlage helfen kann. In einer Zukunft, in der Chatbots überall präsent sind, hilft das Spiel, spielerisch Strategien für kritisches Hinterfragen und digitale Urteilsfähigkeit zu entwickeln.
 
+## Datenschutzhinweis
+
+Diese Website verwendet Chatbots, die von einer KI‑Technologie (GPT-4 von OpenAI) unterstützt wird. Wenn Du den Chatbot nutzt, können Deine Eingaben vom externen Dienstleister (OpenAI) zu Trainingszwecken der KI-Technologie übermittelt werden. Die Antworten der Chatbots werden automatisch generiert und dienen ausschliesslich Informationszwecken.
+
+Bitte gib keine sensiblen oder vertraulichen Informationen im Chat ein (z.B. Personendaten, Passwörter oder persönliche Identifikationsdaten).
+
+Intersections speichert keine Daten oder Prompt-Eingaben.
+
 ## Über Intersections
 
 Intersections befähigt Menschen mit Wissen und Tools, um die KI-Transformation sicher, verantwortungswürdig und effektiv zu gestalten. [Finde mehr heraus](https://intersections.ch/)
